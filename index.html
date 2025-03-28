@@ -5,26 +5,34 @@
     <style>
         body {
             font-size: 32px;
+            text-align: center;
         }
         .logo {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            width: 180px;
+            display: block;
+            margin: 0 auto;
+            width: 200px;
         }
         .header {
-            margin-left: 200px;
-            font-size: 48px;
+            font-size: 60px;
             font-weight: bold;
+            margin-top: 20px;
         }
         .final-price {
-            font-size: 50px;
+            font-size: 60px;
             font-weight: bold;
             color: #555;
+            margin-top: 20px;
         }
         input, select, button {
             font-size: 32px;
             padding: 12px;
+            margin: 10px;
+            width: 80%;
+            max-width: 500px;
+        }
+        button {
+            font-size: 36px;
+            font-weight: bold;
         }
     </style>
     <script>
@@ -69,11 +77,27 @@
     <img src="https://siangelectricals.github.io/trade-in-calculator/logo.png" alt="Company Logo" class="logo">
     <h2 class="header">Trade-In Calculator</h2>
     
-    <label>Trade-In Value (RM):</label>
+    <label>Trade-In Value (RM):</label><br>
     <input type="number" id="tradeInValue" step="1"><br><br>
     
-    <label>Membership Level:</label>
+    <label>Membership Level:</label><br>
     <select id="membership">
         <option value="No">No</option>
         <option value="Basic">Basic</option>
         <option value="Pro">Pro</option>
+        <option value="VIP">VIP</option>
+    </select><br><br>
+
+    <label>Buying Price (RM):</label><br>
+    <input type="number" id="buyingPrice" step="1"><br><br>
+    
+    <label>Extended Warranty (RM):</label><br>
+    <input type="number" id="extendedWarranty" step="1"><br><br>
+    
+    <button onclick="calculateTradeIn()">Calculate</button>
+    <h3 id="tradeInMaxCapResult"></h3>
+    <h3 id="tradeInDiscountResult"></h3>
+    <h3 id="tradeInAmountResult"></h3>
+    <h3 id="finalPriceResult" class="final-price"></h3>
+</body>
+</html>
