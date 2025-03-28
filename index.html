@@ -3,6 +3,9 @@
 <head>
     <title>Trade-In Calculator</title>
     <style>
+        body {
+            font-size: 18px;
+        }
         .logo {
             position: absolute;
             top: 10px;
@@ -10,19 +13,12 @@
             width: 100px;
         }
         .header {
-            margin-left: 120px; /* Push the heading to the right */
-        }
-        .final-price-container {
-            margin-top: 20px;
-            padding: 10px;
-            border: 2px solid gray;
-            background-color: #f0f0f0;
-            display: inline-block;
+            margin-left: 120px;
         }
         .final-price {
             font-size: 24px;
             font-weight: bold;
-            color: gray;
+            color: #555;
         }
     </style>
     <script>
@@ -59,7 +55,7 @@
             document.getElementById("tradeInMaxCapResult").innerHTML = "Trade-In Value (Max Cap): RM " + tradeInMaxCap;
             document.getElementById("tradeInDiscountResult").innerHTML = "Trade-In Discount: " + tradeInDiscountPercent + "%";
             document.getElementById("tradeInAmountResult").innerHTML = "Trade-In Amount: RM " + tradeInAmount;
-            document.getElementById("finalPriceResult").innerHTML = "Final Price: RM " + finalPrice.toFixed(0);
+            document.getElementById("finalPriceResult").innerHTML = "Final Price: RM " + finalPrice.toFixed(2);
         }
     </script>
 </head>
@@ -88,8 +84,6 @@
     <h3 id="tradeInMaxCapResult"></h3>
     <h3 id="tradeInDiscountResult"></h3>
     <h3 id="tradeInAmountResult"></h3>
-    <div class="final-price-container">
-        <h3 id="finalPriceResult" class="final-price"></h3>
-    </div>
+    <h3 id="finalPriceResult" class="final-price"></h3>
 </body>
 </html>
