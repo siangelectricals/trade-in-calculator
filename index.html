@@ -6,15 +6,6 @@
         body {
             font-size: 28px;
             text-align: center;
-            background-color: #f8f4e3;
-        }
-        .container {
-            border: 15px solid #a0522d;
-            padding: 20px;
-            display: inline-block;
-            background-color: white;
-            border-radius: 20px;
-            box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
         }
         .logo {
             display: block;
@@ -76,7 +67,7 @@
             
             let finalPrice = (buyingPrice + extendedWarranty) - tradeInAmount;
             
-            document.getElementById("tradeInMaxCapResult").innerHTML = "Trade-In Value (Max Cap): RM " + tradeInMaxCap;
+            document.getElementById("tradeInMaxCapResult").innerHTML = "Trade-In Max Value: RM " + tradeInMaxCap;
             document.getElementById("tradeInDiscountResult").innerHTML = "Trade-In Discount: " + tradeInDiscountPercent + "%";
             document.getElementById("tradeInAmountResult").innerHTML = "Trade-In Amount: RM " + tradeInAmount;
             document.getElementById("finalPriceResult").innerHTML = "Final Price: RM " + Math.round(finalPrice);
@@ -84,32 +75,30 @@
     </script>
 </head>
 <body>
-    <div class="container">
-        <img src="https://siangelectricals.github.io/trade-in-calculator/logo.png" alt="Company Logo" class="logo">
-        <h2 class="header">Trade-In Calculator</h2>
-        
-        <label>Trade-In Value (RM):</label><br>
-        <input type="number" id="tradeInValue" step="1"><br><br>
-        
-        <label>Membership Level:</label><br>
-        <select id="membership">
-            <option value="No">No</option>
-            <option value="Basic">Basic</option>
-            <option value="Pro">Pro</option>
-            <option value="VIP">VIP</option>
-        </select><br><br>
+    <img src="https://siangelectricals.github.io/trade-in-calculator/logo.png" alt="Company Logo" class="logo">
+    <h2 class="header">Trade-In Calculator</h2>
     
-        <label>Buying Price (RM):</label><br>
-        <input type="number" id="buyingPrice" step="1"><br><br>
-        
-        <label>Extended Warranty (RM):</label><br>
-        <input type="number" id="extendedWarranty" step="1"><br><br>
-        
-        <button onclick="calculateTradeIn()">Calculate</button>
-        <h3 id="tradeInMaxCapResult"></h3>
-        <h3 id="tradeInDiscountResult"></h3>
-        <h3 id="tradeInAmountResult"></h3>
-        <h3 id="finalPriceResult" class="final-price"></h3>
-    </div>
+    <label>Trade-In Value (RM):</label><br>
+    <input type="number" id="tradeInValue" step="1"><br><br>
+    
+    <label>Membership Level:</label><br>
+    <select id="membership">
+        <option value="No">No</option>
+        <option value="Basic">Basic</option>
+        <option value="Pro">Pro</option>
+        <option value="VIP">VIP</option>
+    </select><br><br>
+
+    <label>Buying Price (RM):</label><br>
+    <input type="number" id="buyingPrice" step="1"><br><br>
+    
+    <label>Extended Warranty (RM):</label><br>
+    <input type="number" id="extendedWarranty" step="1"><br><br>
+    
+    <button onclick="calculateTradeIn()">Calculate</button>
+    <h3 id="tradeInMaxCapResult"></h3>
+    <h3 id="tradeInDiscountResult"></h3>
+    <h3 id="tradeInAmountResult"></h3>
+    <h3 id="finalPriceResult" class="final-price"></h3>
 </body>
 </html>
