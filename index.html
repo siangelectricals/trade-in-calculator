@@ -12,11 +12,17 @@
         .header {
             margin-left: 120px; /* Push the heading to the right */
         }
+        .final-price-container {
+            margin-top: 20px;
+            padding: 10px;
+            border: 2px solid gray;
+            background-color: #f0f0f0;
+            display: inline-block;
+        }
         .final-price {
             font-size: 24px;
             font-weight: bold;
-            color: red;
-            margin-top: 20px;
+            color: gray;
         }
     </style>
     <script>
@@ -82,6 +88,8 @@
     <h3 id="tradeInMaxCapResult"></h3>
     <h3 id="tradeInDiscountResult"></h3>
     <h3 id="tradeInAmountResult"></h3>
-    <h3 id="finalPriceResult" class="final-price"></h3>
+    <div class="final-price-container">
+        <h3 id="finalPriceResult" class="final-price"></h3>
+    </div>
 </body>
 </html>
