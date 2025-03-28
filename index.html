@@ -12,6 +12,12 @@
         .header {
             margin-left: 120px; /* Push the heading to the right */
         }
+        .final-price {
+            font-size: 24px;
+            font-weight: bold;
+            color: red;
+            margin-top: 20px;
+        }
     </style>
     <script>
         function calculateTradeIn() {
@@ -47,7 +53,7 @@
             document.getElementById("tradeInMaxCapResult").innerHTML = "Trade-In Value (Max Cap): RM " + tradeInMaxCap;
             document.getElementById("tradeInDiscountResult").innerHTML = "Trade-In Discount: " + tradeInDiscountPercent + "%";
             document.getElementById("tradeInAmountResult").innerHTML = "Trade-In Amount: RM " + tradeInAmount;
-            document.getElementById("finalPriceResult").innerHTML = "Final Price to Pay: RM " + finalPrice.toFixed(2);
+            document.getElementById("finalPriceResult").innerHTML = "Final Price: RM " + finalPrice.toFixed(2);
         }
     </script>
 </head>
@@ -76,6 +82,6 @@
     <h3 id="tradeInMaxCapResult"></h3>
     <h3 id="tradeInDiscountResult"></h3>
     <h3 id="tradeInAmountResult"></h3>
-    <h3 id="finalPriceResult"></h3>
+    <h3 id="finalPriceResult" class="final-price"></h3>
 </body>
 </html>
