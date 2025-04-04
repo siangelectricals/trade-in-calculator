@@ -1,104 +1,86 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Trade-In Calculator</title>
+    <title>Trade-In Value Search</title>
     <style>
         body {
-            font-size: 28px;
+            font-family: Arial, sans-serif;
+            background-color: #f6f6f6;
             text-align: center;
+            padding: 40px;
+            font-size: 20px;
         }
-        .logo {
-            display: block;
-            margin: 0 auto;
-            width: 180px;
+        .search-container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+            max-width: 500px;
+            margin: auto;
         }
-        .header {
-            font-size: 50px;
-            font-weight: bold;
-            margin-top: 20px;
-        }
-        .final-price {
-            font-size: 50px;
-            font-weight: bold;
-            color: #555;
-            margin-top: 20px;
-            text-decoration: underline;
-        }
-        input, select, button {
-            font-size: 28px;
+        input, datalist {
+            font-size: 20px;
             padding: 10px;
-            margin: 8px;
-            width: 75%;
-            max-width: 450px;
+            width: 100%;
+            margin-top: 10px;
         }
-        button {
-            font-size: 32px;
+        #result {
+            margin-top: 20px;
             font-weight: bold;
+            color: #333;
+            font-size: 24px;
         }
     </style>
-    <script>
-        function calculateTradeIn() {
-            let tradeInValue = parseFloat(document.getElementById("tradeInValue").value);
-            let buyingPrice = parseFloat(document.getElementById("buyingPrice").value);
-            let extendedWarranty = parseFloat(document.getElementById("extendedWarranty").value) || 0;
-            let membership = document.getElementById("membership").value;
-            
-            let maxCapRates = {
-                "No": 1.00,
-                "Basic": 1.05,
-                "Pro": 1.10,
-                "VIP": 1.20
-            };
-            
-            let discountRates = {
-                "No": 0.10,
-                "Basic": 0.15,
-                "Pro": 0.20,
-                "VIP": 0.30
-            };
-            
-            let tradeInMaxCap = Math.ceil(tradeInValue * maxCapRates[membership]);
-            let tradeInDiscountPercent = discountRates[membership] * 100;
-            let tradeInAmount = Math.ceil((buyingPrice + extendedWarranty) * discountRates[membership]);
-            
-            if (tradeInAmount > tradeInMaxCap) {
-                tradeInAmount = tradeInMaxCap;
-            }
-            
-            let finalPrice = (buyingPrice + extendedWarranty) - tradeInAmount;
-            
-            document.getElementById("tradeInMaxCapResult").innerHTML = "Trade-In Max Value: RM " + tradeInMaxCap;
-            document.getElementById("tradeInDiscountResult").innerHTML = "Trade-In Discount: " + tradeInDiscountPercent + "%";
-            document.getElementById("tradeInAmountResult").innerHTML = "Trade-In Amount: RM " + tradeInAmount;
-            document.getElementById("finalPriceResult").innerHTML = "Final Price: RM " + Math.round(finalPrice);
-        }
-    </script>
 </head>
 <body>
-    <img src="https://siangelectricals.github.io/trade-in-calculator/logo.png" alt="Company Logo" class="logo">
-    <h2 class="header">Xchange+ Calculator</h2>
-    
-    <label>Trade-In Value (RM):</label><br>
-    <input type="number" id="tradeInValue" step="1"><br><br>
-    
-    <label>Membership Level:</label><br>
-    <select id="membership">
-        <option value="No">No</option>
-        <option value="Basic">Basic</option>
-        <option value="Pro">Pro</option>
-        <option value="VIP">VIP</option>
-    </select><br><br>
+    <div class="search-container">
+        <h2>Trade-In Value Lookup</h2>
+        <input list="models" id="modelInput" placeholder="Enter or select model code...">
+        <datalist id="models"></datalist>
+        <button onclick="lookupValue()">Check Value</button>
+        <div id="result"></div>
+    </div>
 
-    <label>Buying Price (RM):</label><br>
-    <input type="number" id="buyingPrice" step="1"><br><br>
-    
-    <label>Extended Warranty (RM):</label><br>
-    <input type="number" id="extendedWarranty" step="1"><br><br>
-    
-    <button onclick="calculateTradeIn()">Calculate</button>
-    <h3 id="tradeInMaxCapResult"></h3>
-    <h3 id="tradeInDiscountResult"></h3>
-    <h3 id="tradeInAmountResult"></h3>
-    <h3 id="finalPriceResult" class="final-price"></h3>
+    <script>
+        let modelData = {};
+
+        async function loadGoogleSheet() {
+            const sheetID = "1gnP-PbAv3SkOYN101L6MJKXv8iUw13PK2NRSKnj34JQ"; // replace with actual Sheet ID
+            const sheetName = "master"; // adjust if needed
+            const url = `https://opensheet.elk.sh/${sheetID}/${sheetName}`;
+
+            try {
+                const response = await fetch(url);
+                const json = await response.json();
+
+                const datalist = document.getElementById("models");
+                json.forEach(row => {
+                    const model = row["Sales model"]?.trim();
+                    const value = parseFloat(row["Trade In Value"]);
+                    if (model && !isNaN(value)) {
+                        modelData[model] = value;
+                        const option = document.createElement("option");
+                        option.value = model;
+                        datalist.appendChild(option);
+                    }
+                });
+            } catch (error) {
+                console.error("Error loading sheet:", error);
+            }
+        }
+
+        function lookupValue() {
+            const model = document.getElementById("modelInput").value.trim();
+            const value = modelData[model];
+            const result = document.getElementById("result");
+            if (value !== undefined) {
+                result.textContent = `Trade-In Value for ${model}: RM ${value}`;
+            } else {
+                result.textContent = "Model not found. Please try again.";
+            }
+        }
+
+        window.onload = loadGoogleSheet;
+    </script>
 </body>
 </html>
