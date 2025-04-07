@@ -2,27 +2,23 @@
 <html>
 <head>
     <title>Xchange+ Calculator</title>
-    <script>
-        const password = "xchange123"; // ✅ change to your preferred password
-        const input = prompt("Enter password to access:");
-
-        if (input !== password) {
-            document.write("<h2 style='text-align:center; color:red;'>Access Denied</h2>");
-            throw new Error("Unauthorized access");
-        }
-    </script>
-</head>
-<body style="font-size: 28px; text-align: center;">
     <style>
+        body {
+            font-size: 28px;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
         .logo {
             display: block;
-            margin: 0 auto;
+            margin: 30px auto 10px;
             width: 180px;
         }
         .header {
             font-size: 50px;
             font-weight: bold;
-            margin-top: 20px;
+            margin: 20px 0;
         }
         .final-price {
             font-size: 50px;
@@ -41,10 +37,70 @@
         button {
             font-size: 32px;
             font-weight: bold;
+            cursor: pointer;
+        }
+        #calculatorSection {
+            display: none;
         }
     </style>
+</head>
+<body>
+
+    <!-- 🔐 Password Section -->
+    <div id="loginSection">
+        <img src="https://siangelectricals.github.io/trade-in-calculator/logo.png" alt="Company Logo" class="logo">
+        <h2 class="header">Xchange+ Calculator</h2>
+        <p>Please enter password to continue:</p>
+        <input type="password" id="passwordInput" placeholder="Enter Password"><br>
+        <button onclick="checkPassword()">Enter</button>
+        <p id="loginError" style="color:red;"></p>
+    </div>
+
+    <!-- ✅ Calculator Section -->
+    <div id="calculatorSection">
+        <img src="https://siangelectricals.github.io/trade-in-calculator/logo.png" alt="Company Logo" class="logo">
+        <h2 class="header">Xchange+ Calculator</h2>
+
+        <label>Trade-In Value (RM):</label><br>
+        <input type="number" id="tradeInValue" step="1"><br><br>
+
+        <label>Membership Level:</label><br>
+        <select id="membership">
+            <option value="No">No</option>
+            <option value="Basic">Basic</option>
+            <option value="Pro">Pro</option>
+            <option value="VIP">VIP</option>
+        </select><br><br>
+
+        <label>Buying Price (RM):</label><br>
+        <input type="number" id="buyingPrice" step="1"><br><br>
+
+        <label>Extended Warranty (RM):</label><br>
+        <input type="number" id="extendedWarranty" step="1"><br><br>
+
+        <button onclick="calculateTradeIn()">Calculate</button>
+        <h3 id="tradeInMaxCapResult"></h3>
+        <h3 id="tradeInDiscountResult"></h3>
+        <h3 id="tradeInAmountResult"></h3>
+        <h3 id="finalPriceResult" class="final-price"></h3>
+    </div>
 
     <script>
+        // Change this to your desired password
+        const correctPassword = "xchange123";
+
+        function checkPassword() {
+            const input = document.getElementById("passwordInput").value;
+            const errorBox = document.getElementById("loginError");
+
+            if (input === correctPassword) {
+                document.getElementById("loginSection").style.display = "none";
+                document.getElementById("calculatorSection").style.display = "block";
+            } else {
+                errorBox.textContent = "Incorrect password. Please try again.";
+            }
+        }
+
         function calculateTradeIn() {
             let tradeInValue = parseFloat(document.getElementById("tradeInValue").value);
             let buyingPrice = parseFloat(document.getElementById("buyingPrice").value);
@@ -81,31 +137,5 @@
             document.getElementById("finalPriceResult").innerHTML = "Final Price: RM " + Math.round(finalPrice);
         }
     </script>
-
-    <img src="https://siangelectricals.github.io/trade-in-calculator/logo.png" alt="Company Logo" class="logo">
-    <h2 class="header">Xchange+ Calculator</h2>
-
-    <label>Trade-In Value (RM):</label><br>
-    <input type="number" id="tradeInValue" step="1"><br><br>
-
-    <label>Membership Level:</label><br>
-    <select id="membership">
-        <option value="No">No</option>
-        <option value="Basic">Basic</option>
-        <option value="Pro">Pro</option>
-        <option value="VIP">VIP</option>
-    </select><br><br>
-
-    <label>Buying Price (RM):</label><br>
-    <input type="number" id="buyingPrice" step="1"><br><br>
-
-    <label>Extended Warranty (RM):</label><br>
-    <input type="number" id="extendedWarranty" step="1"><br><br>
-
-    <button onclick="calculateTradeIn()">Calculate</button>
-    <h3 id="tradeInMaxCapResult"></h3>
-    <h3 id="tradeInDiscountResult"></h3>
-    <h3 id="tradeInAmountResult"></h3>
-    <h3 id="finalPriceResult" class="final-price"></h3>
 </body>
 </html>
