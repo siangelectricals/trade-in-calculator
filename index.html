@@ -75,6 +75,18 @@
     </script>
 </head>
 <body>
+
+<!-- 🔐 Password Prompt -->
+<script>
+    const allowedPassword = "xchange123"; // Change this to your own password
+    const userInput = prompt("Enter password to access:");
+
+    if (userInput !== allowedPassword) {
+        document.body.innerHTML = "<h2 style='text-align:center; color:red;'>Access Denied</h2>";
+        throw new Error("Unauthorized access");
+    }
+</script>
+
     <img src="https://siangelectricals.github.io/trade-in-calculator/logo.png" alt="Company Logo" class="logo">
     <h2 class="header">Xchange+ Calculator</h2>
     
