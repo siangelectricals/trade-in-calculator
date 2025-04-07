@@ -2,12 +2,18 @@
 <html>
 <head>
     <title>Xchange+ Calculator</title>
-    <style>
-        body {
-            display: none; /* hide content until password is validated */
-            font-size: 28px;
-            text-align: center;
+    <script>
+        const password = "xchange123"; // ✅ change to your preferred password
+        const input = prompt("Enter password to access:");
+
+        if (input !== password) {
+            document.write("<h2 style='text-align:center; color:red;'>Access Denied</h2>");
+            throw new Error("Unauthorized access");
         }
+    </script>
+</head>
+<body style="font-size: 28px; text-align: center;">
+    <style>
         .logo {
             display: block;
             margin: 0 auto;
@@ -37,63 +43,51 @@
             font-weight: bold;
         }
     </style>
-    <script>
-        // 🔐 Password protection BEFORE anything shows
-        const allowedPassword = "xchange123"; // Change this to your own password
-        const userInput = prompt("Enter password to access:");
-        if (userInput !== allowedPassword) {
-            document.write("<h2 style='text-align:center; color:red;'>Access Denied</h2>");
-            throw new Error("Unauthorized access");
-        } else {
-            document.addEventListener("DOMContentLoaded", () => {
-                document.body.style.display = "block";
-            });
-        }
 
+    <script>
         function calculateTradeIn() {
             let tradeInValue = parseFloat(document.getElementById("tradeInValue").value);
             let buyingPrice = parseFloat(document.getElementById("buyingPrice").value);
             let extendedWarranty = parseFloat(document.getElementById("extendedWarranty").value) || 0;
             let membership = document.getElementById("membership").value;
-            
+
             let maxCapRates = {
                 "No": 1.00,
                 "Basic": 1.05,
                 "Pro": 1.10,
                 "VIP": 1.20
             };
-            
+
             let discountRates = {
                 "No": 0.10,
                 "Basic": 0.15,
                 "Pro": 0.20,
                 "VIP": 0.30
             };
-            
+
             let tradeInMaxCap = Math.ceil(tradeInValue * maxCapRates[membership]);
             let tradeInDiscountPercent = discountRates[membership] * 100;
             let tradeInAmount = Math.ceil((buyingPrice + extendedWarranty) * discountRates[membership]);
-            
+
             if (tradeInAmount > tradeInMaxCap) {
                 tradeInAmount = tradeInMaxCap;
             }
-            
+
             let finalPrice = (buyingPrice + extendedWarranty) - tradeInAmount;
-            
+
             document.getElementById("tradeInMaxCapResult").innerHTML = "Trade-In Max Value: RM " + tradeInMaxCap;
             document.getElementById("tradeInDiscountResult").innerHTML = "Trade-In Discount: " + tradeInDiscountPercent + "%";
             document.getElementById("tradeInAmountResult").innerHTML = "Trade-In Amount: RM " + tradeInAmount;
             document.getElementById("finalPriceResult").innerHTML = "Final Price: RM " + Math.round(finalPrice);
         }
     </script>
-</head>
-<body>
+
     <img src="https://siangelectricals.github.io/trade-in-calculator/logo.png" alt="Company Logo" class="logo">
     <h2 class="header">Xchange+ Calculator</h2>
-    
+
     <label>Trade-In Value (RM):</label><br>
     <input type="number" id="tradeInValue" step="1"><br><br>
-    
+
     <label>Membership Level:</label><br>
     <select id="membership">
         <option value="No">No</option>
@@ -104,10 +98,10 @@
 
     <label>Buying Price (RM):</label><br>
     <input type="number" id="buyingPrice" step="1"><br><br>
-    
+
     <label>Extended Warranty (RM):</label><br>
     <input type="number" id="extendedWarranty" step="1"><br><br>
-    
+
     <button onclick="calculateTradeIn()">Calculate</button>
     <h3 id="tradeInMaxCapResult"></h3>
     <h3 id="tradeInDiscountResult"></h3>
